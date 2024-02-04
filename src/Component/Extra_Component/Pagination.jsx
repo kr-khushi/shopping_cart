@@ -28,21 +28,12 @@ const Pagination = ({
     // history.push(`?${queryParams.toString()}`);
     navigate(`?${queryParams.toString()}`);
   };
-  const mobileButtonLimit = 5;
 
   return (
     <>
-      <div className="pagination flex flex-wrap space-x-2 mt-9 overflow-x-auto justify-center">
+      <div className="pagination">
         {pages.map((page) => (
-          <button
-            key={page}
-            onClick={() => handlePageChange(page)}
-            className={`${currentPage === page
-              ? "bg-blue-500 text-white"
-              : "bg-gray-300 text-gray-700"
-              } px-4 py-2 rounded-md text-sm md:text-base mb-2`}
-            style={{ width: `calc(100% / ${mobileButtonLimit} - 8px)` }}
-          >
+          <button key={page} onClick={() => handlePageChange(page)}>
             {page}
           </button>
         ))}

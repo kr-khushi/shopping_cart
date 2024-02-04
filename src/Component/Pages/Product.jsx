@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "../Extra_Component/ProductCard";
+import "../../style/product.css";
 import useFetchData from "../../hooks/useFetchData";
 import Pagination from "../Extra_Component/Pagination";
 
@@ -16,6 +17,15 @@ const Product = () => {
   const firstPostIndex = lastPostIndex - postPerPage;
   const currentposts = data.slice(firstPostIndex, lastPostIndex);
 
+  // useEffect(() => {
+  //   // Filter products based on the search query
+  //   setFilteredProducts(
+  //     currentposts.filter((product) =>
+  //       product.title.toLowerCase().includes(searchQuery.toLowerCase())
+  //     )
+  //   );
+
+  // }, [searchQuery, currentposts]);
 
 
   if (loading) {
@@ -27,20 +37,25 @@ const Product = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center m-12">
-        <div className="product-container grid grid-cols-1 md:grid-cols-4 gap-4 md:mx-12">
-          {data && data?.map((product) => (
-            <ProductCard key={product.id} {...product} />
-          ))}
-        </div>
-        <Pagination
-          className="mt-4"
-          totalPosts={80}
-          postPerPage={postPerPage}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
+      <div className="search-bar">
+        <input
+          type="text"
+          placeholder="Search products..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
         />
       </div>
+      <div className="product-container">
+        {data && data?.map((product) => (
+          <ProductCard key={product.id} {...product} />
+        ))}
+      </div>
+      <Pagination
+        totalPosts={80}
+        postPerPage={postPerPage}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </>
   );
 };
